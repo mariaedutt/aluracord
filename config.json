@@ -1,10 +1,10 @@
 {
-    "name": "Aluracord - Matrix (peas)",
+    "name": "Talking",
     "theme": {
         "colors": {
             "primary": {
-                "050": "#E3F9E5",
-                "100": "#C1EAC5",
+                "050": "#CF1E29",
+                "100": "#314A3F",
                 "200": "#A3D9A5",
                 "300": "#7BC47F",
                 "400": "#57AE5B",
