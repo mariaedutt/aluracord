@@ -59,8 +59,16 @@ export default function ChatPage() {
                     }}
                 >
 
-                    <MessageList mensagens={listOfMessages} /> 
-                    {listOfMessages}
+                    <MessageList mensagens={listOfMessages} />
+                    
+                    {/* Lista de mensagens: {listOfMessages.map((currentMessage) => {
+                        console.log(currentMessage)
+                        return(
+                            <li> {currentMessage} </li>
+                        )
+
+                    })} */}
+
                     <Box
                         as="form"
                         styleSheet={{
@@ -86,7 +94,6 @@ export default function ChatPage() {
                                 const valueOfMessage = event.target.value;
                                 setMessage(valueOfMessage);
                             }}
-
                             onKeyPress={(event) => {
                                 //Se evento receber a tecla enter, então vai fazer...
                                 if (event.key === 'Enter') {
@@ -137,50 +144,53 @@ function MessageList(props) {
             }}
         >
             {props.mensagens.map((mensagem) => {
-            <Text
-                key={mensagem.id}
-                tag="li"
-                styleSheet={{
-                    borderRadius: '5px',
-                    padding: '6px',
-                    marginBottom: '12px',
-                    hover: {
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
-                    }
-                }}
-            >
-                <Box
+                return(
+                <Text
+                    key={mensagem.id}
+                    tag="li"
                     styleSheet={{
-                        marginBottom: '8px',
+                        borderRadius: '5px',
+                        padding: '6px',
+                        marginBottom: '12px',
+                        hover: {
+                            backgroundColor: appConfig.theme.colors.neutrals[700],
+                        }
                     }}
                 >
-                    <Image
+                    <Box
                         styleSheet={{
-                            width: '20px',
-                            height: '20px',
-                            borderRadius: '50%',
-                            display: 'inline-block',
-                            marginRight: '8px',
+                            marginBottom: '8px',
                         }}
-                        src={`https://github.com/vanessametonini.png`}
-                    />
-                    <Text tag="strong">
-                        {mensagem.de}
-                    </Text>
-                    <Text
-                        styleSheet={{
-                            fontSize: '10px',
-                            marginLeft: '8px',
-                            color: appConfig.theme.colors.neutrals[300],
-                        }}
-                        tag="span"
                     >
-                        {(new Date().toLocaleDateString())}
-                    </Text>
-                </Box>
-                {mensagem.texto}
-            </Text>
-            })}
+                        <Image
+                            styleSheet={{
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '50%',
+                                display: 'inline-block',
+                                marginRight: '8px',
+                            }}
+                            src={`https://github.com/mariaedutt.png`}
+                        />
+                        <Text tag="strong">
+                            {mensagem.whoSent}
+                        </Text>
+                        <Text
+                            styleSheet={{
+                                fontSize: '10px',
+                                marginLeft: '8px',
+                                color: appConfig.theme.colors.neutrals[300],
+                            }}
+                            tag="span"
+                        >
+                            {(new Date().toLocaleDateString())}
+                        </Text>
+                    </Box>
+                    {mensagem.textMessage}
+                </Text>
+            )})}
+        
+           
         </Box>
         
     );
