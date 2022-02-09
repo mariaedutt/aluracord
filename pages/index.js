@@ -95,25 +95,27 @@ export default function PaginaInicial() {
               }}
               /> */}
                 <TextField
-                fullWidth
-                textFieldColors={{
-                  neutral: {
-                    textColor: appConfig.theme.colors.neutrals[200],
-                    mainColor: appConfig.theme.colors.neutrals[900],
-                    mainColorHighlight: appConfig.theme.colors.primary[500],
-                    backgroundColor: appConfig.theme.colors.neutrals[800],
-                  },
-                }}
-                value={userName}
-                onChange={function handler(){
-                    const newUserName = event.target.value;
-                    setUserName(newUserName);
+                  placeholder="Digite o seu usuário do github aqui"
+                  fullWidth
+                  textFieldColors={{
+                    neutral: {
+                      textColor: appConfig.theme.colors.neutrals[200],
+                      mainColor: appConfig.theme.colors.neutrals[900],
+                      mainColorHighlight: appConfig.theme.colors.primary[500],
+                      backgroundColor: appConfig.theme.colors.neutrals[800],
+                    },
+                  }}
+                  value={userName}
+                  onChange={function handler(){
+                      const newUserName = event.target.value;
+                      setUserName(newUserName);
                 }}
                /> 
               <Button
                 type='submit'
                 label='Entrar'
                 fullWidth
+                disabled={userName > 0 && false}
                 buttonColors={{
                   contrastColor: appConfig.theme.colors.neutrals["000"],
                   mainColor: appConfig.theme.colors.primary["050"],

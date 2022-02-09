@@ -1,11 +1,25 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js'
+
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzY0NDk4NSwiZXhwIjoxOTU5MjIwOTg1fQ.7XRUAMkDPwh1XxQrvPup0_eQSQM0Hzw4BWlj3gMNIXE';
+const SUPABASE_URL = 'https://ychbxdkflgtezcebvhij.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 
 export default function ChatPage() {
     const [message, setMessage] = React.useState('');
     const [listOfMessages, setListOfMessages] = React.useState([]);
 
+    React.useEffect(() => {
+        supabaseClient
+            .from('mensagens')
+            .select('*')
+            .them(( {data} ) => {
+                setListOfMessages(data);
+            });
+    }, [])
 
     function handleNewMessage(newMessage) {
         const messageObject = {
@@ -61,14 +75,6 @@ export default function ChatPage() {
 
                     <MessageList mensagens={listOfMessages} />
                     
-                    {/* Lista de mensagens: {listOfMessages.map((currentMessage) => {
-                        console.log(currentMessage)
-                        return(
-                            <li> {currentMessage} </li>
-                        )
-
-                    })} */}
-
                     <Box
                         as="form"
                         styleSheet={{
@@ -100,7 +106,6 @@ export default function ChatPage() {
                                     //Remove o comportamento padrão do enter
                                     event.preventDefault();
                                     handleNewMessage(message);
-
                                 };
                             }}
                         />
@@ -153,8 +158,8 @@ function MessageList(props) {
                         padding: '6px',
                         marginBottom: '12px',
                         hover: {
-                            backgroundColor: appConfig.theme.colors.neutrals[700],
-                        }
+                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                       }
                     }}
                 >
                     <Box
@@ -170,7 +175,7 @@ function MessageList(props) {
                                 display: 'inline-block',
                                 marginRight: '8px',
                             }}
-                            src={`https://github.com/mariaedutt.png`}
+                            src={`https://github.com/${mensagem.whoSent}.png`}
                         />
                         <Text tag="strong">
                             {mensagem.whoSent}
